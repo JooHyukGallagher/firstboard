@@ -39,10 +39,11 @@ public class Board extends BaseTimeEntity {
     private List<Reply> replies = new ArrayList<>();
 
     @Builder
-    public Board(String boardTitle, String boardContent, Integer viewCount) {
+    public Board(String boardTitle, String boardContent, Integer viewCount, BoardType boardType) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.viewCount = viewCount;
+        this.boardType = boardType;
     }
 
     public void setUser(User user) {
@@ -50,4 +51,12 @@ public class Board extends BaseTimeEntity {
         user.getBoards().add(this);
     }
 
+    public void update(String boardTitle, String boardContent) {
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+    }
+
+    public void plusViewCount(){
+        this.viewCount += 1;
+    }
 }
