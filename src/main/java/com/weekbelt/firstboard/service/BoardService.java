@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -22,18 +23,21 @@ public class BoardService {
     }
 
     @Transactional
-    public Long update(Long id, BoardUpdateRequestDto reqeustDto) {
+    public Long update(Long id, BoardUpdateRequestDto requestDto) {
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
 
-        findBoard.update(reqeustDto.getBoardTitle(), reqeustDto.getBoardContent());
+        findBoard.update(requestDto.getBoardTitle(), requestDto.getBoardContent());
 
         return id;
     }
 
+    @Transactional
     public BoardResponseDto findById(Long id) {
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        findBoard.plusViewCount();
 
         return new BoardResponseDto(findBoard);
     }
