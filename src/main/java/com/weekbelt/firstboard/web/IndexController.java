@@ -10,4 +10,14 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/login")
+    public String loginForm(){
+        return "loginForm";
+    }
+
+    @GetMapping("/join")
+    public String joinForm(){
+        return "joinForm";
+    }
 }
