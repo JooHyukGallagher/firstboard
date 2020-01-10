@@ -1,0 +1,69 @@
+{{>layout/header}}
+{{>layout/navigation/navbar}}
+<!-- 게시판 -->
+<main class="container">
+    <ul class="nav nav-tabs my-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">전체</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">공지</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">자유</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">질문</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">홍보</a>
+        </li>
+    </ul>
+    <!-- 게시글 -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">제목</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">글쓴이</th>
+            <th scope="col">댓글</th>
+            <th scope="col">작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">안녕하세요</th>
+            <td>공지</td>
+            <td>weekbelt</td>
+            <td>4</td>
+            <td>2020-01-09</td>
+        </tr>
+        <tr>
+            <th scope="row">JPA 연관관계 매핑에 관한 질문입니다.</th>
+            <td>질문</td>
+            <td>vfrvfr4207</td>
+            <td>10</td>
+            <td>2020-01-09</td>
+        </tr>
+        <tr>
+            <th scope="row">야구볼사람</th>
+            <td>자유</td>
+            <td>weekbelt</td>
+            <td>20</td>
+            <td>2020-01-08</td>
+        </tr>
+        <tr>
+            <th scope="row">안녕하세요 연합레저스포츠 동아리 유니트입니다.</th>
+            <td>홍보</td>
+            <td>unit</td>
+            <td>35</td>
+            <td>2020-01-05</td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" onclick="location.href='/board/save'"
+            class="btn btn-secondary float-right my-2 mx-3"
+            id="btn-write">글쓰기</button>
+</main>
+{{>layout/boardJSLink}}
+{{>layout/footer}}

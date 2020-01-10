@@ -1,7 +1,6 @@
 package com.weekbelt.firstboard.web.dto;
 
 import com.weekbelt.firstboard.domain.board.Board;
-import com.weekbelt.firstboard.domain.board.BoardType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,11 @@ public class BoardSaveRequestDto {
 
     private String boardTitle;
     private String boardContent;
-    private BoardType boardType;
+    private String boardType;
     private Integer viewCount;
 
     @Builder
-    public BoardSaveRequestDto(String boardTitle, String boardContent, BoardType boardType, Integer viewCount) {
+    public BoardSaveRequestDto(String boardTitle, String boardContent, String boardType, Integer viewCount) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardType = boardType;
