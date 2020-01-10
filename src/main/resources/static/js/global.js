@@ -12,9 +12,11 @@ const postData = (url, data) => {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        redirect: "/board/list",
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
     })
-        .then(response => response.json()) // parses JSON response into native JavaScript objects
+        .then(response => {
+            alert("글이 등록되었습니다.");
+            return response.json()
+        }) // parses JSON response into native JavaScript objects
         .catch(err => alert(JSON.stringify(err)));
 };
