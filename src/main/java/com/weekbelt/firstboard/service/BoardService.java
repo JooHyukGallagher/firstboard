@@ -2,13 +2,16 @@ package com.weekbelt.firstboard.service;
 
 import com.weekbelt.firstboard.domain.board.Board;
 import com.weekbelt.firstboard.domain.board.BoardRepository;
+import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
 import com.weekbelt.firstboard.web.dto.BoardUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -40,5 +43,12 @@ public class BoardService {
         findBoard.plusViewCount();
 
         return new BoardResponseDto(findBoard);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardListResponseDto> findAllDesc(){
+        return boardRepository.findAllDesc().stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

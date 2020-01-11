@@ -7,14 +7,14 @@ import lombok.Getter;
 public class BoardResponseDto {
 
     private Long id;
-    private String boardTitle;
-    private String boardContent;
+    private String title;
+    private String content;
     private Integer viewCount;
 
     public BoardResponseDto (Board board) {
         this.id = board.getId();
-        this.boardTitle = board.getBoardTitle();
-        this.boardContent = board.getBoardContent();
+        this.title = board.getBoardTitle();
+        this.content = board.getBoardContent();
         this.viewCount = board.getViewCount();
     }
 }

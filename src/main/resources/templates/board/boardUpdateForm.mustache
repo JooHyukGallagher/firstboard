@@ -1,0 +1,31 @@
+{{>layout/header}}
+{{>layout/navigation/navbar}}
+<!-- 게시글등록 폼 -->
+<main class="container col-sm-6">
+    <div class="border border-secondary my-4 p-4">
+        <h1 class="text-center my-4">게시글 등록</h1>
+        <form action="" class="px-4 py-3">
+            <div class="form-group">
+                <label for="boardType">카테고리</label>
+                <select class="form-control" id="boardType" name="boardType">
+                    <option value="announce">공지</option>
+                    <option value="free">자유</option>
+                    <option value="question">질문</option>
+                    <option value="promotion">홍보</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="제목" value="{{board.title}}">
+            </div>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control" id="content" name="content" placeholder="내용" rows="5">{{board.content}}</textarea>
+            </div>
+            <button type="button" class="btn btn-dark my-2" id="btn-update">수정 완료</button>
+            <button type="button" class="btn btn-secondary my-2" onclick="location.href='/board/list'">취소</button>
+        </form>
+    </div>
+</main>
+{{>layout/boardJSLink}}
+{{>layout/footer}}
