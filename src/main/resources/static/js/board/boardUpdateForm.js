@@ -3,10 +3,7 @@ const boardUpdate = {
         this.defaultCategory();
   },
   defaultCategory: async function () {
-      const boardId = document.querySelector("#boardId").value;
-      const boardResponse = await getData("/api/board/" + boardId);
-
-      const boardType = boardResponse.boardType;
+      const boardType = document.querySelector(".boardType").value;
       const categoryValue = document.querySelector("[value=" + boardType + "]");
       categoryValue.setAttribute("selected", "selected");
   }

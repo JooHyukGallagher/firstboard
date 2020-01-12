@@ -2,6 +2,7 @@ package com.weekbelt.firstboard.service;
 
 import com.weekbelt.firstboard.domain.board.Board;
 import com.weekbelt.firstboard.domain.board.BoardRepository;
+import com.weekbelt.firstboard.domain.board.BoardType;
 import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
@@ -52,6 +53,14 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<BoardListResponseDto> findAllDescByBoardType(String boardType){
+        List<Board> allDescByBoardType = boardRepository.findAllDescByBoardType(BoardType.valueOf(boardType));
+        return allDescByBoardType.stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void delete (Long boardId) {
         Board board = boardRepository.findById(boardId)
@@ -59,4 +68,5 @@ public class BoardService {
 
         boardRepository.delete(board);
     }
+
 }

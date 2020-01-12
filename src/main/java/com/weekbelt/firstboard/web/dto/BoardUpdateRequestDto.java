@@ -3,7 +3,9 @@ package com.weekbelt.firstboard.web.dto;
 import com.weekbelt.firstboard.domain.board.Board;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class BoardUpdateRequestDto {
 

@@ -31,7 +31,7 @@ const board = {
         }
     },
     updateBoard: async function () {
-        const boardId = document.querySelector("#boardId").value;
+        const boardId = document.querySelector(".boardId").value;
         const url = "/api/board/" + boardId;
         const data = {
             boardType: document.querySelector("#boardType").value,
@@ -45,7 +45,7 @@ const board = {
         }
     },
     removeBoard: async function () {
-        const boardId = document.querySelector("#boardId").value;
+        const boardId = document.querySelector(".boardId").value;
         const url = "/api/board/" + boardId;
 
         const result = await removeData(url);

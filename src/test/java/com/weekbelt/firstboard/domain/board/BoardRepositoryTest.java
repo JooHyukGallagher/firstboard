@@ -56,7 +56,7 @@ public class BoardRepositoryTest {
         Board board = boardList.get(0);
         assertThat(board.getBoardTitle()).isEqualTo(boardTitle);
         assertThat(board.getBoardContent()).isEqualTo(boardContent);
-        assertThat(board.getBoardType()).isEqualTo(boardType);
+        assertThat(board.getBoardType()).isEqualTo(BoardType.FREE);
         assertThat(board.getViewCount()).isEqualTo(viewCount);
     }
 

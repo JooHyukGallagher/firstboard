@@ -38,8 +38,9 @@
         </div>
         <button class="btn btn-primary my-2" onclick="location.href='/board/list'">글목록</button>
         <!-- To Do : 수정, 삭제 버튼은 권한 있을경우에만 보이기-->
-        <input type="hidden" value="{{board.id}}" id="boardId">
-        <button class="btn btn-dark my-2" onclick="location.href='/board/update/{{board.id}}'">수정</button>
+        <input type="hidden" value="{{board.id}}" class="boardId">
+        <input type="hidden" value="{{board.boardType}}" class="boardType">
+        <button class="btn btn-dark my-2" onclick="location.href='/board/update'">수정</button>
         <button class="btn btn-secondary my-2" id="btn-remove">삭제</button>
     </div>
 </main>

@@ -34,6 +34,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
+//    implementation 'org.junit.jupiter:junit-jupiter'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+test {
+    useJUnitPlatform()
 }
 

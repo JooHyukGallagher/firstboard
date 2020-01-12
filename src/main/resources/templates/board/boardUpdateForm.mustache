@@ -22,7 +22,8 @@
                 <label for="content">내용</label>
                 <textarea class="form-control" id="content" name="content" placeholder="내용" rows="5">{{board.content}}</textarea>
             </div>
-            <input type="hidden" value="{{board.id}}" id="boardId">
+            <input type="hidden" value="{{board.id}}" class="boardId">
+            <input type="hidden" value="{{board.boardType}}" class="boardType">
             <button type="button" class="btn btn-dark my-2" id="btn-update">수정</button>
             <button type="button" class="btn btn-secondary my-2" onclick="location.href='/board/list'">취소</button>
         </form>
