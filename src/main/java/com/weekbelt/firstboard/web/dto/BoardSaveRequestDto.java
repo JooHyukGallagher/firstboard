@@ -1,6 +1,7 @@
 package com.weekbelt.firstboard.web.dto;
 
 import com.weekbelt.firstboard.domain.board.Board;
+import com.weekbelt.firstboard.domain.board.BoardType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

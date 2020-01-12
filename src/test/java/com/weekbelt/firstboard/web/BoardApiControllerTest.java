@@ -119,7 +119,7 @@ public class BoardApiControllerTest {
                 .boardTitle("title")
                 .boardContent("content")
                 .viewCount(0)
-                .boardType("free")
+                .boardType("FREE")
                 .build());
         //when
         List<Board> boardList = boardRepository.findAll();

@@ -13,6 +13,7 @@ spring:
         format_sql: true
         #          show_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        default_batch_fetch_size: 100
 
   devtools:
     livereload:
