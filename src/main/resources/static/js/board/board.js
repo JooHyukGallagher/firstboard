@@ -1,5 +1,5 @@
 const board = {
-    init: function () {
+    init: async function () {
         const saveButton = document.querySelector("#btn-save");
         if (saveButton) {
             saveButton.addEventListener("click", this.saveBoard);

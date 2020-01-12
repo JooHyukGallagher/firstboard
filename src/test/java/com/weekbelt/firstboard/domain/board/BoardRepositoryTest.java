@@ -29,7 +29,7 @@ public class BoardRepositoryTest {
         String boardTitle = "테스트 게시글";
         String boardContent = "테스트 본문";
         Integer viewCount = 0;
-        String boardType = "free";
+        String boardType = "FREE";
 
         boardRepository.save(Board.builder()
                 .boardTitle(boardTitle)

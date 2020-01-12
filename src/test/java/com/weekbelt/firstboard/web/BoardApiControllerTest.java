@@ -47,7 +47,7 @@ public class BoardApiControllerTest {
         //given
         String boardTitle = "title";
         String boardContent = "content";
-        String boardType = "free";
+        String boardType = "FREE";
         Integer viewCount = 0;
 
         BoardSaveRequestDto requestDto = BoardSaveRequestDto.builder()
@@ -80,7 +80,7 @@ public class BoardApiControllerTest {
         Board savedBoard = boardRepository.save(Board.builder()
                     .boardTitle("제목입니다")
                     .boardContent("내용입니다.")
-                    .boardType("free")
+                    .boardType("FREE")
                     .viewCount(0)
                     .build());
 

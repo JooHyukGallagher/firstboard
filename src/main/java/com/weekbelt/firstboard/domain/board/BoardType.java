@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum BoardType {
-    announce("공지"),
-    free("자유"),
-    question("질문"),
-    promotion("홍보");
+    ANNOUNCE("공지"),
+    FREE("자유"),
+    QUESTION("질문"),
+    PROMOTION("홍보");
 
     private String boardType;
 
