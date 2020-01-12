@@ -14,6 +14,7 @@ const board = {
         if (removeButton) {
             removeButton.addEventListener("click", this.removeBoard);
         }
+
     },
     saveBoard: async function () {
         const url = "/api/board";
