@@ -1,8 +1,13 @@
 const board = {
-    init: async function () {
+    init: function () {
         const saveButton = document.querySelector("#btn-save");
         if (saveButton) {
             saveButton.addEventListener("click", this.saveBoard);
+        }
+
+        const updateButton = document.querySelector("#btn-update");
+        if (updateButton) {
+            updateButton.addEventListener("click", this.updateBoard);
         }
     },
     saveBoard: async function () {
@@ -14,8 +19,22 @@ const board = {
             viewCount: 0
         };
 
-        const response = await postData(url, data);
-        if (response) {
+        const result = await postData(url, data);
+        if (result) {
+            window.location.href = "/board/list";
+        }
+    },
+    updateBoard: async function () {
+        const boardId = document.querySelector("#boardId").value;
+        const url = "/api/board/" + boardId;
+        const data = {
+            boardType: document.querySelector("#boardType").value,
+            boardTitle: document.querySelector("#title").value,
+            boardContent: document.querySelector("#content").value,
+        };
+
+        const result = await putData(url, data);
+        if (result) {
             window.location.href = "/board/list";
         }
     }

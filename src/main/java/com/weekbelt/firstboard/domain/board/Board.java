@@ -51,9 +51,10 @@ public class Board extends BaseTimeEntity {
         user.getBoards().add(this);
     }
 
-    public void update(String boardTitle, String boardContent) {
+    public void update(String boardTitle, String boardContent, String boardType) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
+        this.boardType = BoardType.valueOf(boardType);
     }
 
     public void plusViewCount(){

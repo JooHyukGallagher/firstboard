@@ -26,7 +26,7 @@ public class BoardViewController {
         return "/board/boardWriteForm";
     }
 
-    @GetMapping("/update")
+    @GetMapping("/update/{boardId}")
     public String boardUpdateForm(@PathVariable Long boardId, Model model) {
         model.addAttribute("board", boardService.findById(boardId));
         return "/board/boardUpdateForm";

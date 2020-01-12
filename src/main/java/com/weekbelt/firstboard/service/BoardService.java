@@ -30,7 +30,7 @@ public class BoardService {
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
 
-        findBoard.update(requestDto.getBoardTitle(), requestDto.getBoardContent());
+        findBoard.update(requestDto.getBoardTitle(), requestDto.getBoardContent(), requestDto.getBoardType());
 
         return id;
     }
