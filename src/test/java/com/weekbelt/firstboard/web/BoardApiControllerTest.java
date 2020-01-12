@@ -69,7 +69,7 @@ public class BoardApiControllerTest {
         List<Board> all = boardRepository.findAll();
         assertThat(all.get(0).getBoardTitle()).isEqualTo(boardTitle);
         assertThat(all.get(0).getBoardContent()).isEqualTo(boardContent);
-        assertThat(all.get(0).getBoardType()).isEqualTo(boardType);
+        assertThat(all.get(0).getBoardType()).isEqualTo(BoardType.FREE);
         assertThat(all.get(0).getViewCount()).isEqualTo(viewCount);
 
     }
@@ -87,10 +87,13 @@ public class BoardApiControllerTest {
         Long updateId = savedBoard.getId();
         String expectedTitle = "제목";
         String expectedContent = "내용";
+        String expectedBoardType= "PROMOTION";
 
+        // 업데이트 요청 객체
         BoardUpdateRequestDto requestDto = BoardUpdateRequestDto.builder()
                 .boardTitle(expectedTitle)
                 .boardContent(expectedContent)
+                .boardType(expectedBoardType)
                 .build();
 
         String url = "http://localhost:" + port + "/api/board/" + updateId;
@@ -108,13 +111,14 @@ public class BoardApiControllerTest {
         List<Board> all = boardRepository.findAll();
         assertThat(all.get(0).getBoardTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getBoardContent()).isEqualTo(expectedContent);
+        assertThat(all.get(0).getBoardType()).isEqualTo(BoardType.PROMOTION);
     }
 
     @Test
     public void BaseTimeEntity_등록() throws Exception {
         //given
         LocalDateTime now = LocalDateTime.of(2019,6,4,0,0,0);
-//        LocalDateTime now = LocalDateTime.now();
+
         boardRepository.save(Board.builder()
                 .boardTitle("title")
                 .boardContent("content")
