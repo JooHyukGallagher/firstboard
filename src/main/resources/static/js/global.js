@@ -37,3 +37,19 @@ const putData = (url, data) => {
         }) // parses JSON response into native JavaScript objects
         .catch(err => alert(JSON.stringify(err)));
 };
+
+const removeData = (url) => {
+    // Default options are marked with *
+    return fetch(url, {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    })
+        .then(response => {
+            alert("삭제 되었습니다.");
+            return response.json()
+        }) // parses JSON response into native JavaScript objects
+        .catch(err => alert(JSON.stringify(err)));
+};

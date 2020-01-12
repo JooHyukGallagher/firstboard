@@ -51,4 +51,12 @@ public class BoardService {
                 .map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete (Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. boardId=" + boardId));
+
+        boardRepository.delete(board);
+    }
 }

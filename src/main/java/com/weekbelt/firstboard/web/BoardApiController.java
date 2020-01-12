@@ -31,4 +31,11 @@ public class BoardApiController {
     public BoardResponseDto findById (@PathVariable Long id) {
         return boardService.findById(id);
     }
+
+    // Delete
+    @DeleteMapping("/board/{id}")
+    public Long delete(@PathVariable Long id){
+        boardService.delete(id);
+        return id;
+    }
 }

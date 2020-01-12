@@ -9,6 +9,11 @@ const board = {
         if (updateButton) {
             updateButton.addEventListener("click", this.updateBoard);
         }
+
+        const removeButton = document.querySelector("#btn-remove");
+        if (removeButton) {
+            removeButton.addEventListener("click", this.removeBoard);
+        }
     },
     saveBoard: async function () {
         const url = "/api/board";
@@ -34,6 +39,15 @@ const board = {
         };
 
         const result = await putData(url, data);
+        if (result) {
+            window.location.href = "/board/list";
+        }
+    },
+    removeBoard: async function () {
+        const boardId = document.querySelector("#boardId").value;
+        const url = "/api/board/" + boardId;
+
+        const result = await removeData(url);
         if (result) {
             window.location.href = "/board/list";
         }
