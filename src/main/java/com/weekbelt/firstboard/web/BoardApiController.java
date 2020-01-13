@@ -35,12 +35,12 @@ public class BoardApiController {
         return boardService.findById(id);
     }
 
-    @GetMapping("/board/list/{boardType}")
-    public List<BoardListResponseDto> findAllDescByBoardType(@PathVariable(required = false) String boardType) {
-        if (boardType != null) {
-            return boardService.findAllDescByBoardType(boardType);
+    @GetMapping("/board/list")
+    public List<BoardListResponseDto> findAllDescByBoardType(@RequestParam String boardType) {
+        if (boardType.equals("ALL")) {
+            return boardService.findAllDesc();
         }
-        return boardService.findAllDesc();
+        return boardService.findAllDescByBoardType(boardType);
     }
 
     // Delete

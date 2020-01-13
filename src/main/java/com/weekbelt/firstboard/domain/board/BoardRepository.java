@@ -16,4 +16,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             " where b.boardType = :boardType" +
             " order by b.id desc")
     List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
+
+
 }
