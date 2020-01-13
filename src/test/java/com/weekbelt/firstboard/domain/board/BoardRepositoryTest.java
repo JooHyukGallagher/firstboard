@@ -81,5 +81,9 @@ public class BoardRepositoryTest {
         assertThat(freeBoardList.size()).isEqualTo(2);
         assertThat(questionBoardList.size()).isEqualTo(1);
         assertThat(promotionBoardList.size()).isEqualTo(1);
+
+        assertThat(announceBoardList.get(0).getBoardTitle()).isEqualTo("공지3");
+        assertThat(announceBoardList.get(0).getBoardContent()).isEqualTo("공지3 입니다.");
+        assertThat(announceBoardList.get(0).getBoardType()).isEqualTo(BoardType.ANNOUNCE);
     }
 }

@@ -11,11 +11,15 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from Board b order by b.id desc")
     List<Board> findAllDesc();
 
+//    TODO : User 로직 추가했을때
+//    @Query("select distinct b from Board b" +
+//            " join fetch b.user u" +
+//            " where b.boardType = :boardType" +
+//            " order by b.id desc")
+//    List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
+
     @Query("select distinct b from Board b" +
-            " join fetch b.user u" +
             " where b.boardType = :boardType" +
             " order by b.id desc")
     List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
-
-
 }

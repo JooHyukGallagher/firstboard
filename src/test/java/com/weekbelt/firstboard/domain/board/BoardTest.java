@@ -5,10 +5,10 @@ import com.weekbelt.firstboard.domain.reply.ReplyRepository;
 import com.weekbelt.firstboard.domain.user.User;
 import com.weekbelt.firstboard.domain.user.UserRepository;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class BoardTest {
     @Autowired
     ReplyRepository replyRepository;
 
-    @AfterAll
+    @AfterEach
     public void cleanup() {
         boardRepository.deleteAll();
     }

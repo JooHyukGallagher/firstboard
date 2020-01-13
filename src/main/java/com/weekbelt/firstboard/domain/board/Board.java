@@ -46,7 +46,7 @@ public class Board extends BaseTimeEntity {
         this.boardType = BoardType.valueOf(boardType);
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
         user.getBoards().add(this);
     }
@@ -57,7 +57,7 @@ public class Board extends BaseTimeEntity {
         this.boardType = BoardType.valueOf(boardType);
     }
 
-    public void plusViewCount(){
+    public void plusViewCount() {
         this.viewCount++;
     }
 

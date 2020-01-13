@@ -55,9 +55,8 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> findAllDescByBoardType(String boardType){
-        List<Board> allDescByBoardType = boardRepository.findAllDescByBoardType(BoardType.valueOf(boardType));
-        return allDescByBoardType.stream()
-                .map(BoardListResponseDto::new)
+        return boardRepository.findAllDescByBoardType(BoardType.valueOf(boardType))
+                .stream().map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
