@@ -20,7 +20,7 @@ public class BoardViewController {
 
     @GetMapping("/list")
     public String boardList(Model model){
-        model.addAttribute("board", boardService.findAllDesc());
+//        model.addAttribute("board", boardService.findAllDesc());
         return "/board/boardList";
     }
 

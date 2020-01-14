@@ -18,7 +18,8 @@ spring:
   devtools:
     livereload:
       enabled: true
-  mustache:
+
+  thymeleaf:
     cache: false
 
 logging:
