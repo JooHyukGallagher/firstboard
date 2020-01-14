@@ -72,7 +72,7 @@
         <tbody id="tbody">
         <!--  게시글 목록  -->
         <tr th:each="board : ${boards}">
-            <th scope="row"><a th:href="'/board/list/' + ${board.id}" th:text="${board.title}">{{title}}
+            <th scope="row"><a th:href="'/board/read/' + ${board.id}" th:text="${board.title}">{{title}}
             </a><span class="badge badge-dark m-1" th:text="${board.replyCount}">{{replyCount}}</span></th>
             <td th:text="${board.boardType}">{{boardType}}</td>
             <td th:text="${board.nickname}">{{nickname}}</td>

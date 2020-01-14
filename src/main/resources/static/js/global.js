@@ -53,3 +53,16 @@ const removeData = (url) => {
         }) // parses JSON response into native JavaScript objects
         .catch(err => alert(JSON.stringify(err)));
 };
+
+// const navigation = {
+//     init: function () {
+//         const navigation = document.querySelector(".navbar-nav");
+//         navigation.addEventListener("click", (evt) => {
+//            console.log(evt);
+//         });
+//     }
+// };
+//
+// document.addEventListener("DOMContentLoaded", () => {
+//     navigation.init();
+// });
