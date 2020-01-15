@@ -3,6 +3,8 @@ package com.weekbelt.firstboard.domain.board;
 import com.weekbelt.firstboard.domain.BaseTimeEntity;
 import com.weekbelt.firstboard.domain.reply.Reply;
 import com.weekbelt.firstboard.domain.user.User;
+import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
+import com.weekbelt.firstboard.web.dto.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,10 +53,10 @@ public class Board extends BaseTimeEntity {
         user.getBoards().add(this);
     }
 
-    public void update(String boardTitle, String boardContent, String boardType) {
-        this.boardTitle = boardTitle;
-        this.boardContent = boardContent;
-        this.boardType = BoardType.valueOf(boardType);
+    public void update(BoardUpdateRequestDto boardUpdateRequestDto) {
+        this.boardTitle = boardUpdateRequestDto.getBoardTitle();
+        this.boardContent = boardUpdateRequestDto.getBoardContent();
+        this.boardType = BoardType.valueOf(boardUpdateRequestDto.getBoardType());
     }
 
     public void plusViewCount() {

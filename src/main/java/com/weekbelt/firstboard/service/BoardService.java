@@ -27,13 +27,12 @@ public class BoardService {
     }
 
     @Transactional
-    public Long update(Long id, BoardUpdateRequestDto requestDto) {
-        Board findBoard = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+    public Long update(Long boardId, BoardUpdateRequestDto requestDto) {
+        Board findBoard = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. boarId=" + boardId));
 
-        findBoard.update(requestDto.getBoardTitle(), requestDto.getBoardContent(), requestDto.getBoardType());
-
-        return id;
+        findBoard.update(requestDto);
+        return boardId;
     }
 
     @Transactional
@@ -42,7 +41,6 @@ public class BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
 
         findBoard.plusViewCount();
-
         return new BoardResponseDto(findBoard);
     }
 
