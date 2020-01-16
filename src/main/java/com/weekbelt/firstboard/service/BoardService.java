@@ -46,14 +46,14 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> findAllDesc(){
-        return boardRepository.findAllDesc().stream()
+        return boardRepository.findAllOrderByIdDesc().stream()
                 .map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> findAllDescByBoardType(String boardType){
-        return boardRepository.findAllDescByBoardType(BoardType.valueOf(boardType))
+        return boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.valueOf(boardType))
                 .stream().map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }

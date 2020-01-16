@@ -40,7 +40,7 @@ public class BoardRepositoryTest {
         board5.setUser(findUser);
         Board board6 = Board.builder().boardTitle("질문1").boardContent("질문1 입니다.").viewCount(0).boardType("QUESTION").build();
         board6.setUser(findUser);
-        Board board7 = Board.builder().boardTitle("홍보").boardContent("홍보1 입니다.").viewCount(0).boardType("PROMOTION").build();
+        Board board7 = Board.builder().boardTitle("홍보1").boardContent("홍보1 입니다.").viewCount(0).boardType("PROMOTION").build();
         board7.setUser(findUser);
 
         boardRepository.save(board1);
@@ -61,19 +61,23 @@ public class BoardRepositoryTest {
     @Test
     public void findAllDesc() throws Exception {
         //given
-        List<Board> allDesc = boardRepository.findAllDesc();
+        List<Board> allDesc = boardRepository.findAllOrderByIdDesc();
         //then
+        // 게시글 수 확인
         assertThat(allDesc.size()).isEqualTo(7);
+        // 게시글 순서 확인
+        assertThat(allDesc.get(0).getBoardTitle()).isEqualTo("홍보1");
+        assertThat(allDesc.get(6).getBoardTitle()).isEqualTo("공지1");
     }
 
     @DisplayName("BoardType에 따른 Board리스트 조회")
     @Test
     public void findAllDescByBoardType() throws Exception {
         //given
-        List<Board> announceBoardList = boardRepository.findAllDescByBoardType(BoardType.ANNOUNCE);
-        List<Board> freeBoardList = boardRepository.findAllDescByBoardType(BoardType.FREE);
-        List<Board> questionBoardList = boardRepository.findAllDescByBoardType(BoardType.QUESTION);
-        List<Board> promotionBoardList = boardRepository.findAllDescByBoardType(BoardType.PROMOTION);
+        List<Board> announceBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.ANNOUNCE);
+        List<Board> freeBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.FREE);
+        List<Board> questionBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.QUESTION);
+        List<Board> promotionBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.PROMOTION);
         //when
 
         //then
@@ -82,6 +86,7 @@ public class BoardRepositoryTest {
         assertThat(questionBoardList.size()).isEqualTo(1);
         assertThat(promotionBoardList.size()).isEqualTo(1);
 
+        // 순서
         assertThat(announceBoardList.get(0).getBoardTitle()).isEqualTo("공지3");
         assertThat(announceBoardList.get(0).getBoardContent()).isEqualTo("공지3 입니다.");
         assertThat(announceBoardList.get(0).getBoardType()).isEqualTo(BoardType.ANNOUNCE);

@@ -141,10 +141,10 @@ public class BoardTest {
         replyRepository.save(reply4);
 
         //when
-        List<Board> announceBoardList = boardRepository.findAllDescByBoardType(BoardType.ANNOUNCE);
-        List<Board> freeBoardList = boardRepository.findAllDescByBoardType(BoardType.FREE);
-        List<Board> questionBoardList = boardRepository.findAllDescByBoardType(BoardType.QUESTION);
-        List<Board> promotionBoardList = boardRepository.findAllDescByBoardType(BoardType.PROMOTION);
+        List<Board> announceBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.ANNOUNCE);
+        List<Board> freeBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.FREE);
+        List<Board> questionBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.QUESTION);
+        List<Board> promotionBoardList = boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.PROMOTION);
 
         //then
 

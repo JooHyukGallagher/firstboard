@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query("select b from Board b order by b.id desc")
-    List<Board> findAllDesc();
+    List<Board> findAllOrderByIdDesc();
 
 //    TODO : User 로직 추가했을때
 //    @Query("select distinct b from Board b" +
@@ -17,9 +17,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 //            " where b.boardType = :boardType" +
 //            " order by b.id desc")
 //    List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
-
-    @Query("select distinct b from Board b" +
-            " where b.boardType = :boardType" +
-            " order by b.id desc")
-    List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
+    List<Board> findAllByBoardTypeOrderByIdDesc(BoardType boardType);
 }
