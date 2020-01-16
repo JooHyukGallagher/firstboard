@@ -3,16 +3,13 @@ package com.weekbelt.firstboard.domain.user;
 import com.weekbelt.firstboard.domain.BaseTimeEntity;
 import com.weekbelt.firstboard.domain.board.Board;
 import com.weekbelt.firstboard.domain.reply.Reply;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 public class User extends BaseTimeEntity {

@@ -5,6 +5,7 @@ import com.weekbelt.firstboard.domain.reply.Reply;
 import com.weekbelt.firstboard.domain.user.User;
 import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
 import com.weekbelt.firstboard.web.dto.BoardUpdateRequestDto;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Board extends BaseTimeEntity {
 
