@@ -1,21 +1,23 @@
 package com.weekbelt.firstboard.domain.board;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    @Query("select b from Board b order by b.id desc")
-    List<Board> findAllOrderByIdDesc();
+    List<Board> findAllByOrderByIdDesc();
 
-//    TODO : User 로직 추가했을때
+    List<Board> findAllByBoardTypeOrderByIdDesc(BoardType boardType);
+
+    Page<Board> findAll(Pageable pageable);
+    Page<Board> findAllByBoardType(BoardType boardType, Pageable pageable);
+
+//    TODO : User 로직 추가했을때(최적화 시)
 //    @Query("select distinct b from Board b" +
 //            " join fetch b.user u" +
 //            " where b.boardType = :boardType" +
 //            " order by b.id desc")
 //    List<Board> findAllDescByBoardType(@Param("boardType") BoardType boardType);
-    List<Board> findAllByBoardTypeOrderByIdDesc(BoardType boardType);
 }

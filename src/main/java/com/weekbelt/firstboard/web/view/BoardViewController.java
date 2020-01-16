@@ -1,8 +1,11 @@
 package com.weekbelt.firstboard.web.view;
 
 import com.weekbelt.firstboard.service.BoardService;
+import com.weekbelt.firstboard.web.dto.BoardListResponse;
+import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,9 @@ public class BoardViewController {
 
     @GetMapping("/list")
     public String boardList(Model model){
-        model.addAttribute("boards", boardService.findAllDesc());
+        Page<BoardListResponseDto> boardPage = boardService.findAllDesc(0);
+        model.addAttribute("boards", boardPage.getContent());
+        model.addAttribute("boardPage", boardPage);
         return "/board/boardList";
     }
 

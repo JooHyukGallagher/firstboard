@@ -1,11 +1,9 @@
 package com.weekbelt.firstboard.web;
 
 import com.weekbelt.firstboard.service.BoardService;
-import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
-import com.weekbelt.firstboard.web.dto.BoardResponseDto;
-import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
-import com.weekbelt.firstboard.web.dto.BoardUpdateRequestDto;
+import com.weekbelt.firstboard.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,11 +34,12 @@ public class BoardApiController {
     }
 
     @GetMapping("/board/list")
-    public List<BoardListResponseDto> findAllDescByBoardType(@RequestParam String boardType) {
+    public Page<BoardListResponseDto> findAllDescByBoardType(@RequestParam(defaultValue = "0") Integer page,
+                                                             @RequestParam String boardType) {
         if (boardType.equals("ALL")) {
-            return boardService.findAllDesc();
+            return boardService.findAllDesc(page);
         }
-        return boardService.findAllDescByBoardType(boardType);
+        return boardService.findAllDescByBoardType(page, boardType);
     }
 
     // Delete
