@@ -122,43 +122,32 @@ const boardPage = {
             boardPage.currentPageNum = 1;
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
-
-            boardPage.activeNextButton();
-            boardPage.disablePrevButton();
         } else if (clickedButtonText === "마지막") {
             boardPage.currentPageNum = boardPage.totalPageCount;
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
-
-            boardPage.activePrevButton();
-            boardPage.disableNextButton();
         } else if (clickedButtonText === "«") {
             boardPage.currentPageNum = parseInt(boardPage.currentPageNum) - 1;
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
-
-            boardPage.activeNextButton();
         } else if (clickedButtonText === "»") {
             boardPage.currentPageNum = parseInt(boardPage.currentPageNum) + 1;
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
-
-            boardPage.activePrevButton();
         } else {
             boardPage.currentPageNum = parseInt(clickedButtonText);
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
-
-            if (boardPage.currentPageNum === 1) {
-                boardPage.activeNextButton();
-                boardPage.disablePrevButton();
-            } else if (boardPage.currentPageNum === boardPage.totalPageCount) {
-                boardPage.activePrevButton();
-                boardPage.disableNextButton();
-            } else {
-                boardPage.activePrevButton();
-                boardPage.activeNextButton();
-            }
+        }
+        if (boardPage.currentPageNum === 1){
+            boardPage.activeNextButton();
+            boardPage.disablePrevButton();
+        } else if (boardPage.currentPageNum === boardPage.totalPageCount){
+            boardPage.activePrevButton();
+            boardPage.disableNextButton();
+        } else {
+            boardPage.activePrevButton();
+            boardPage.activeNextButton();
         }
     },
     createBoardListByPageNum: async function () {
@@ -179,22 +168,18 @@ const boardPage = {
     activePrevButton: function () {
         const prevButton = document.querySelector(".page-item > #prev").parentElement;
         prevButton.classList.remove("disabled");
-        prevButton.setAttribute("href", "#");
     },
     disablePrevButton: function () {
-        const nextButton = document.querySelector(".page-item > #prev").parentElement;
-        nextButton.classList.add("disabled");
-        nextButton.removeAttribute("href");
+        const prevButton = document.querySelector(".page-item > #prev").parentElement;
+        prevButton.classList.add("disabled");
     },
     activeNextButton: function () {
-        const prevButton = document.querySelector(".page-item > #next").parentElement;
-        prevButton.classList.remove("disabled");
-        prevButton.setAttribute("href", "#");
+        const nextButton = document.querySelector(".page-item > #next").parentElement;
+        nextButton.classList.remove("disabled");
     },
     disableNextButton: function () {
         const nextButton = document.querySelector(".page-item > #next").parentElement;
         nextButton.classList.add("disabled");
-        nextButton.removeAttribute("href");
     }
 };
 
