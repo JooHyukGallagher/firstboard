@@ -35,7 +35,7 @@ public class BoardApiController {
 
     @GetMapping("/board/list")
     public Page<BoardListResponseDto> findAllDescByBoardType(@RequestParam(defaultValue = "0") Integer page,
-                                                             @RequestParam String boardType) {
+                                                             @RequestParam(defaultValue = "ALL") String boardType) {
         if (boardType.equals("ALL")) {
             return boardService.findAllDesc(page);
         }

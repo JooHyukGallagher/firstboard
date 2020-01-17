@@ -1,7 +1,6 @@
 package com.weekbelt.firstboard.web.view;
 
 import com.weekbelt.firstboard.service.BoardService;
-import com.weekbelt.firstboard.web.dto.BoardListResponse;
 import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,9 @@ public class BoardViewController {
 
     @GetMapping("/list")
     public String boardList(Model model){
-        Page<BoardListResponseDto> boardPage = boardService.findAllDesc(0);
-        model.addAttribute("boards", boardPage.getContent());
-        model.addAttribute("boardPage", boardPage);
+//        Page<BoardListResponseDto> boardPage = boardService.findAllDesc(0);
+//        model.addAttribute("boards", boardPage.getContent());
+//        model.addAttribute("boardPage", boardPage);
         return "/board/boardList";
     }
 

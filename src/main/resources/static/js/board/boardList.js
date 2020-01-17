@@ -1,26 +1,47 @@
-const boardList = {
-    init: function () {
-        let prevButton = document.querySelector("#ALL");
-        let currentButton;
+const PAGE_LIMIT = 5;
 
+const boardCategory = {
+    currentBoardType: "ALL",
+    prevButton: document.querySelector("#ALL"),
+    currentButton: "",
+    init: function () {
+        this.registCategoryButton();
+    },
+    registCategoryButton: function () {
         const categoryList = document.querySelector("#category");
         categoryList.addEventListener("click", (evt) => {
-            // 클릭시 이전 카테고리 active 삭제 및 해당 카테고리 active 표시
-            prevButton.classList.remove("active");
-            currentButton = evt.target;
-            currentButton.classList.add("active");
-            prevButton = evt.target;
-            this.requestBoardList(evt);
+            boardPage.currentPageNum = 1;
+            boardCategory.changeBoardTypeButton(evt.target);
+            boardCategory.changeBoardType(evt.target);
+            boardList.requestBoardList(evt.target);
         })
     },
-    requestBoardList: async function (evt) {
-        const categoryButton = evt.target;
-        if (categoryButton.classList.contains("nav-link")) {
-            const boarListResponseList = await getData("/api/board/list?boardType=" + categoryButton.id);
-            boardList.setBindTemplate(boarListResponseList);
+    changeBoardTypeButton: function (clickecCategoryButton) {
+        boardCategory.prevButton.classList.remove("active");
+        boardCategory.currentButton = clickecCategoryButton;
+        boardCategory.currentButton.classList.add("active");
+        boardCategory.prevButton = clickecCategoryButton;
+    },
+    changeBoardType: function (clickedCategoryButton) {
+        boardCategory.currentBoardType = clickedCategoryButton.id;
+    }
+};
+
+const boardList = {
+    init: async function (boardPageData) {
+        this.initBoardListPage(boardPageData);
+    },
+    initBoardListPage: function (boardPageData) {
+        boardList.createBoardList(boardPageData.content);
+    },
+    requestBoardList: async function (clickedCategoryButton) {
+        if (clickedCategoryButton.classList.contains("nav-link")) {
+            const boardPageData = await getData("/api/board/list?boardType=" + clickedCategoryButton.id);
+            boardPage.init(boardPageData);
+            boardList.createBoardList(boardPageData.content);
         }
     },
-    setBindTemplate: function (boardListResponseList) {
+    createBoardList: function (boardListResponseList) {
         // 기존 리스트 삭제
         const boardListContainer = document.querySelector("#tbody");
         boardListContainer.innerHTML = "";
@@ -47,6 +68,140 @@ const boardList = {
     }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    boardList.init();
+const boardPage = {
+    prevPageButton: "",
+    totalPageCount: 0,
+    currentPageNum: 1,
+    init: function (boardPageData) {
+        boardPage.totalPageCount = boardPageData.totalPages;
+        this.createPageButtonList(boardPageData);
+        this.registPageButton();
+
+        boardPage.prevPageButton = document.getElementById(boardPage.currentPageNum);
+        boardPage.prevPageButton.classList.add("active");
+    },
+    createPageButtonList: function () {
+        const firstPage = PAGE_LIMIT * Math.floor((boardPage.currentPageNum - 1) / PAGE_LIMIT) + 1;
+        let lastPage = firstPage + PAGE_LIMIT - 1;
+        if (boardPage.totalPageCount < firstPage + PAGE_LIMIT - 1) {
+            lastPage = boardPage.totalPageCount;
+        }
+
+        const pagination = document.querySelector(".pagination");
+        pagination.innerHTML = "";
+        const pageFirstButtonTemplate = document.querySelector("#pageFirstButtonTemplate").innerHTML;
+        const pagePrevButtonTemplate = document.querySelector("#pagePrevButtonTemplate").innerHTML;
+        pagination.insertAdjacentHTML("beforeend", pageFirstButtonTemplate);
+        pagination.insertAdjacentHTML("beforeend", pagePrevButtonTemplate);
+
+        boardPage.appendPageButtons(pagination, firstPage, lastPage);
+
+        const pageNextButtonTemplate = document.querySelector("#pageNextButtonTemplate").innerHTML;
+        const pageLastButtonTemplate = document.querySelector("#pageLastButtonTemplate").innerHTML;
+        pagination.insertAdjacentHTML("beforeend", pageNextButtonTemplate);
+        pagination.insertAdjacentHTML("beforeend", pageLastButtonTemplate);
+    },
+    appendPageButtons: function (paginationTemplate, firstPage, lastPage) {
+        for (let i = firstPage; i <= lastPage; i++) {
+            const pageButtonTemplate = document.querySelector("#pageButtonTemplate").innerHTML;
+            const bindTemplate = Handlebars.compile(pageButtonTemplate);
+            const data = {
+                currentPage: i
+            };
+            const resultPageButtonTemplate = bindTemplate(data);
+            paginationTemplate.insertAdjacentHTML("beforeend", resultPageButtonTemplate);
+        }
+    },
+    registPageButton: function () {
+        const paginationTemplate = document.querySelector(".pagination");
+        paginationTemplate.addEventListener("click", boardPage.requestBoardListByPageNum);
+    },
+    requestBoardListByPageNum: async function (evt) {
+        const clickedButtonText = evt.target.innerText;
+        if (clickedButtonText === "처음") {
+            boardPage.currentPageNum = 1;
+            await boardPage.createBoardListByPageNum();
+            boardPage.activeCurrentPageButton();
+
+            boardPage.activeNextButton();
+            boardPage.disablePrevButton();
+        } else if (clickedButtonText === "마지막") {
+            boardPage.currentPageNum = boardPage.totalPageCount;
+            await boardPage.createBoardListByPageNum();
+            boardPage.activeCurrentPageButton();
+
+            boardPage.activePrevButton();
+            boardPage.disableNextButton();
+        } else if (clickedButtonText === "«") {
+            boardPage.currentPageNum = parseInt(boardPage.currentPageNum) - 1;
+            await boardPage.createBoardListByPageNum();
+            boardPage.activeCurrentPageButton();
+
+            boardPage.activeNextButton();
+        } else if (clickedButtonText === "»") {
+            boardPage.currentPageNum = parseInt(boardPage.currentPageNum) + 1;
+            await boardPage.createBoardListByPageNum();
+            boardPage.activeCurrentPageButton();
+
+            boardPage.activePrevButton();
+        } else {
+            boardPage.currentPageNum = parseInt(clickedButtonText);
+            await boardPage.createBoardListByPageNum();
+            boardPage.activeCurrentPageButton();
+
+            if (boardPage.currentPageNum === 1) {
+                boardPage.activeNextButton();
+                boardPage.disablePrevButton();
+            } else if (boardPage.currentPageNum === boardPage.totalPageCount) {
+                boardPage.activePrevButton();
+                boardPage.disableNextButton();
+            } else {
+                boardPage.activePrevButton();
+                boardPage.activeNextButton();
+            }
+        }
+    },
+    createBoardListByPageNum: async function () {
+        const page = parseInt(boardPage.currentPageNum) - 1;
+        const requestUrl = "/api/board/list?page=" + page + "&boardType=" + boardCategory.currentBoardType;
+        const boardPageData = await getData(requestUrl);
+        boardPage.createPageButtonList(boardPageData);
+        boardList.createBoardList(boardPageData.content);
+    },
+    activeCurrentPageButton: function () {
+        // 이전 버튼 활성 없애기
+        boardPage.prevPageButton.classList.remove("active");
+        // 현재 버튼 활성 시키기
+        const currentPageButton = document.getElementById(boardPage.currentPageNum);
+        currentPageButton.classList.add("active");
+        boardPage.prevPageButton = currentPageButton;
+    },
+    activePrevButton: function () {
+        const prevButton = document.querySelector(".page-item > #prev").parentElement;
+        prevButton.classList.remove("disabled");
+        prevButton.setAttribute("href", "#");
+    },
+    disablePrevButton: function () {
+        const nextButton = document.querySelector(".page-item > #prev").parentElement;
+        nextButton.classList.add("disabled");
+        nextButton.removeAttribute("href");
+    },
+    activeNextButton: function () {
+        const prevButton = document.querySelector(".page-item > #next").parentElement;
+        prevButton.classList.remove("disabled");
+        prevButton.setAttribute("href", "#");
+    },
+    disableNextButton: function () {
+        const nextButton = document.querySelector(".page-item > #next").parentElement;
+        nextButton.classList.add("disabled");
+        nextButton.removeAttribute("href");
+    }
+};
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const boardPageData = await getData("/api/board/list?boardType=ALL");
+    boardCategory.init();
+    boardList.init(boardPageData);
+    boardPage.init(boardPageData);
 });

@@ -11,10 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -60,13 +56,6 @@ public class BoardService {
 
         return boardPage.map(BoardListResponseDto::new);
     }
-
-//    @Transactional(readOnly = true)
-//    public List<BoardListResponseDto> findAllDescByBoardType(String boardType) {
-//        return boardRepository.findAllByBoardTypeOrderByIdDesc(BoardType.valueOf(boardType))
-//                .stream().map(BoardListResponseDto::new)
-//                .collect(Collectors.toList());
-//    }
 
     @Transactional
     public void delete(Long boardId) {
