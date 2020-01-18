@@ -21,10 +21,7 @@ public class BoardViewController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public String boardList(Model model){
-//        Page<BoardListResponseDto> boardPage = boardService.findAllDesc(0);
-//        model.addAttribute("boards", boardPage.getContent());
-//        model.addAttribute("boardPage", boardPage);
+    public String boardList(){
         return "/board/boardList";
     }
 

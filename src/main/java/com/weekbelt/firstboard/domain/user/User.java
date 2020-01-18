@@ -9,17 +9,25 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Entity
 public class User extends BaseTimeEntity {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String userName;
+
+    @Column(nullable = false)
     private String userPw;
+
+    @Column(nullable = false)
     private String nickname;
+
     private String message;
+
+    @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
