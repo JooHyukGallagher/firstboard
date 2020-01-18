@@ -1,5 +1,6 @@
 package com.weekbelt.firstboard.domain.board;
 
+import com.weekbelt.firstboard.domain.user.Role;
 import com.weekbelt.firstboard.domain.user.User;
 import com.weekbelt.firstboard.domain.user.UserRepository;
 import org.junit.jupiter.api.*;
@@ -27,7 +28,7 @@ public class BoardRepositoryTest {
     @BeforeEach
     public void Init() throws Exception {
         System.out.println("Init");
-        User user = User.builder().userName("vfrvfr4207").userPw("123").nickname("weekbelt").email("vfrvfr4207@gmail.com").message("반갑습니다.").build();
+        User user = User.builder().name("joohyuk").email("vfrvfr4207@gmail.com").role(Role.USER).build();
         Long userId = userRepository.save(user).getId();
         User findUser = userRepository.findById(userId).get();
 

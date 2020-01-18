@@ -9,29 +9,25 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
     @Id @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
-    private String userPw;
-
-    @Column(nullable = false)
-    private String nickname;
-
-    private String message;
+    private String name;
 
     @Column(nullable = false)
     private String email;
 
+    @Column
+    private String picture;
+
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    @Column(nullable = false)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Board> boards = new ArrayList<>();
@@ -40,11 +36,20 @@ public class User extends BaseTimeEntity {
     private List<Reply> replies = new ArrayList<>();
 
     @Builder
-    public User(String userName, String userPw, String nickname, String message, String email) {
-        this.userName = userName;
-        this.userPw = userPw;
-        this.nickname = nickname;
-        this.message = message;
+    public User(String name, String email, String picture, Role role) {
+        this.name = name;
         this.email = email;
+        this.picture = picture;
+        this.role = role;
+    }
+
+    public User update(String name, String picture) {
+        this.name = name;
+        this.picture = picture;
+        return this;
+    }
+
+    public String getUserTypeKey() {
+        return this.role.getKey();
     }
 }
