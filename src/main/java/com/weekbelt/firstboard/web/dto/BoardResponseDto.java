@@ -26,7 +26,7 @@ public class BoardResponseDto {
         if (user == null) {
             this.nickname = "weekbelt";
         } else {
-            this.nickname = board.getUser().getNickname();
+            this.nickname = board.getUser().getName();
         }
     }
 }

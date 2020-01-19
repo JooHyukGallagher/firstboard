@@ -26,7 +26,7 @@ public class BoardListResponseDto {
 
         User user = board.getUser();
         if (user != null) {
-            this.nickname = board.getUser().getNickname();
+            this.nickname = board.getUser().getName();
         } else {
             this.nickname = "weekbelt"; // 임시 닉네임
         }
