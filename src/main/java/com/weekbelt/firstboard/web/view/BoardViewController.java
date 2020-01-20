@@ -1,5 +1,6 @@
 package com.weekbelt.firstboard.web.view;
 
+import com.weekbelt.firstboard.config.auth.dto.SessionUser;
 import com.weekbelt.firstboard.service.BoardService;
 import com.weekbelt.firstboard.web.dto.BoardListResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardResponseDto;
@@ -18,29 +19,50 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class BoardViewController {
 
+    private final HttpSession httpSession;
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public String boardList(){
+    public String boardList(Model model){
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "/board/boardList";
     }
 
     @GetMapping("/save")
-    public String boardWriteForm(){
+    public String boardWriteForm(Model model){
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "/board/boardWriteForm";
     }
 
     @GetMapping("/update")
     public String boardUpdateForm(Model model, HttpSession httpSession) {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
         model.addAttribute("board", httpSession.getAttribute("board"));
 
-        httpSession.invalidate();
+        httpSession.removeAttribute("board");
 
         return "/board/boardUpdateForm";
     }
 
     @GetMapping("/read/{boardId}")
     public String boardReadForm(@PathVariable Long boardId, Model model, HttpSession httpSession) {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
+
         BoardResponseDto boardResponseDto = boardService.findById(boardId);
         httpSession.setAttribute("board", boardResponseDto);
         model.addAttribute("board", boardResponseDto);
