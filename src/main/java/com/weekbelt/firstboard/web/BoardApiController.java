@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class BoardApiController {
 
+    private final HttpSession httpSession;
     private final BoardService boardService;
 
     // Create

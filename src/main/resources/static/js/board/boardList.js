@@ -77,8 +77,10 @@ const boardPage = {
         this.createPageButtonList(boardPageData);
         this.registPageButton();
 
-        boardPage.prevPageButton = document.getElementById(boardPage.currentPageNum);
-        boardPage.prevPageButton.classList.add("active");
+        if (this.totalPageCount > 0) {
+            boardPage.prevPageButton = document.getElementById(boardPage.currentPageNum);
+            boardPage.prevPageButton.classList.add("active");
+        }
     },
     createPageButtonList: function () {
         const firstPage = PAGE_LIMIT * Math.floor((boardPage.currentPageNum - 1) / PAGE_LIMIT) + 1;
@@ -119,13 +121,17 @@ const boardPage = {
     requestBoardListByPageNum: async function (evt) {
         const clickedButtonText = evt.target.innerText;
         if (clickedButtonText === "처음") {
-            boardPage.currentPageNum = 1;
-            await boardPage.createBoardListByPageNum();
-            boardPage.activeCurrentPageButton();
+            if (boardPage.totalPageCount > 0) {
+                boardPage.currentPageNum = 1;
+                await boardPage.createBoardListByPageNum();
+                boardPage.activeCurrentPageButton();
+            }
         } else if (clickedButtonText === "마지막") {
-            boardPage.currentPageNum = boardPage.totalPageCount;
-            await boardPage.createBoardListByPageNum();
-            boardPage.activeCurrentPageButton();
+            if (boardPage.totalPageCount > 0) {
+                boardPage.currentPageNum = boardPage.totalPageCount;
+                await boardPage.createBoardListByPageNum();
+                boardPage.activeCurrentPageButton();
+            }
         } else if (clickedButtonText === "«") {
             boardPage.currentPageNum = parseInt(boardPage.currentPageNum) - 1;
             await boardPage.createBoardListByPageNum();
@@ -139,10 +145,10 @@ const boardPage = {
             await boardPage.createBoardListByPageNum();
             boardPage.activeCurrentPageButton();
         }
-        if (boardPage.currentPageNum === 1){
+        if (boardPage.currentPageNum === 1) {
             boardPage.activeNextButton();
             boardPage.disablePrevButton();
-        } else if (boardPage.currentPageNum === boardPage.totalPageCount){
+        } else if (boardPage.currentPageNum === boardPage.totalPageCount) {
             boardPage.activePrevButton();
             boardPage.disableNextButton();
         } else {
@@ -158,12 +164,15 @@ const boardPage = {
         boardList.createBoardList(boardPageData.content);
     },
     activeCurrentPageButton: function () {
-        // 이전 버튼 활성 없애기
-        boardPage.prevPageButton.classList.remove("active");
-        // 현재 버튼 활성 시키기
-        const currentPageButton = document.getElementById(boardPage.currentPageNum);
-        currentPageButton.classList.add("active");
-        boardPage.prevPageButton = currentPageButton;
+        if (boardPage.prevPageButton !== "") {
+            // 이전 버튼 활성 없애기
+            boardPage.prevPageButton.classList.remove("active");
+
+            // 현재 버튼 활성 시키기
+            const currentPageButton = document.getElementById(boardPage.currentPageNum);
+            currentPageButton.classList.add("active");
+            boardPage.prevPageButton = currentPageButton;
+        }
     },
     activePrevButton: function () {
         const prevButton = document.querySelector(".page-item > #prev").parentElement;
