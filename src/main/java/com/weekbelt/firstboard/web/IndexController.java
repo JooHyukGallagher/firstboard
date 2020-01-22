@@ -1,5 +1,6 @@
 package com.weekbelt.firstboard.web;
 
+import com.weekbelt.firstboard.config.auth.LoginUser;
 import com.weekbelt.firstboard.config.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 
-    private final HttpSession httpSession;
-
     @GetMapping("/")
-    public String index(Model model) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
+    public String index(Model model, @LoginUser SessionUser user) {
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }

@@ -1,5 +1,7 @@
 package com.weekbelt.firstboard.web;
 
+import com.weekbelt.firstboard.config.auth.LoginUser;
+import com.weekbelt.firstboard.config.auth.dto.SessionUser;
 import com.weekbelt.firstboard.service.BoardService;
 import com.weekbelt.firstboard.web.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +16,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class BoardApiController {
 
-    private final HttpSession httpSession;
     private final BoardService boardService;
 
     // Create
     @PostMapping("/board")
-    public Long save(@RequestBody BoardSaveRequestDto requestDto) {
-        return boardService.save(requestDto);
+    public Long save(@RequestBody BoardSaveRequestDto requestDto, @LoginUser SessionUser user) {
+        return boardService.save(requestDto, user);
     }
 
     // Update
