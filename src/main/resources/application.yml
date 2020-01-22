@@ -24,10 +24,11 @@ spring:
 
   thymeleaf:
     cache: false
+  session:
+    store-type: jdbc
 
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-
 
