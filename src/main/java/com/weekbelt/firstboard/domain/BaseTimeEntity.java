@@ -1,5 +1,7 @@
 package com.weekbelt.firstboard.domain;
 
+import com.weekbelt.firstboard.domain.board.Board;
+import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,4 +22,5 @@ public abstract class BaseTimeEntity {
 
     @LastModifiedDate
     private LocalDateTime modifyDate;
+
 }

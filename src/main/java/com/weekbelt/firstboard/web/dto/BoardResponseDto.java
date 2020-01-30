@@ -2,8 +2,14 @@ package com.weekbelt.firstboard.web.dto;
 
 import com.weekbelt.firstboard.domain.board.Board;
 import com.weekbelt.firstboard.domain.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class BoardResponseDto {
 

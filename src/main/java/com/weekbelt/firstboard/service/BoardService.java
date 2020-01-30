@@ -14,8 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -25,14 +23,15 @@ public class BoardService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long save(BoardSaveRequestDto requestDto, SessionUser user) {
+    public BoardResponseDto save(BoardSaveRequestDto requestDto, SessionUser user) {
         User findUser = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다. email=" + user.getEmail()));
 
-        Board board = requestDto.toEntity();
+        Board board = requestDto.toBoardEntity();
         board.setUser(findUser);
 
-        return boardRepository.save(board).getId();
+        Board savedBoard =  boardRepository.save(board);
+        return savedBoard.getBoardResponseDto();
     }
 
     @Transactional

@@ -24,7 +24,7 @@ public class BoardSaveRequestDto {
         this.viewCount = viewCount;
     }
 
-    public Board toEntity() {
+    public Board toBoardEntity() {
         return Board.builder()
                 .boardTitle(boardTitle)
                 .boardContent(boardContent)

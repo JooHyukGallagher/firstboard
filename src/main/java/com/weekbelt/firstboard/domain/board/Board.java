@@ -3,7 +3,7 @@ package com.weekbelt.firstboard.domain.board;
 import com.weekbelt.firstboard.domain.BaseTimeEntity;
 import com.weekbelt.firstboard.domain.reply.Reply;
 import com.weekbelt.firstboard.domain.user.User;
-import com.weekbelt.firstboard.web.dto.BoardSaveRequestDto;
+import com.weekbelt.firstboard.web.dto.BoardResponseDto;
 import com.weekbelt.firstboard.web.dto.BoardUpdateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -64,4 +64,14 @@ public class Board extends BaseTimeEntity {
         this.viewCount++;
     }
 
+    public BoardResponseDto getBoardResponseDto() {
+        return BoardResponseDto.builder()
+                .id(this.id)
+                .title(this.boardTitle)
+                .content(this.boardContent)
+                .boardType(this.boardType.name())
+                .nickname(this.user.getName())
+                .viewCount(this.viewCount)
+                .build();
+    }
 }

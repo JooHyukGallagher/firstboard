@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +18,7 @@ public class BoardApiController {
 
     // Create
     @PostMapping("/board")
-    public Long save(@RequestBody BoardSaveRequestDto requestDto, @LoginUser SessionUser user) {
+    public BoardResponseDto save(@RequestBody BoardSaveRequestDto requestDto, @LoginUser SessionUser user) {
         return boardService.save(requestDto, user);
     }
 
