@@ -2,13 +2,14 @@ package com.weekbelt.firstboard.web.dto;
 
 import com.weekbelt.firstboard.domain.board.Board;
 import com.weekbelt.firstboard.domain.board.BoardType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BoardSaveRequestDtoTest {
 
+    @DisplayName("BoardSaveRequestDto -> Board")
     @Test
     public void toBoardEntity() throws Exception {
         //given

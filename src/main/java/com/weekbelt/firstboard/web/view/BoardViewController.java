@@ -58,7 +58,7 @@ public class BoardViewController {
 
         BoardResponseDto boardResponseDto = boardService.findById(boardId);
         httpSession.setAttribute("board", boardResponseDto);
-        model.addAttribute("board", boardResponseDto);
+//        model.addAttribute("board", boardResponseDto);
         return "/board/boardReadForm";
     }
 
